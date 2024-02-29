@@ -1,0 +1,96 @@
+html {
+  height: 100%;
+  width: 100%;
+  background-color: #D3D0CB;
+}
+
+h1 {
+  font-family: monospace;
+  font-size: 60px;
+}
+
+h2 {font-family: monospace;
+  font-size: 30px;
+   padding: 20px 20px 20px 20px;}
+
+p{font-family: monospace;
+ font-size:20px;
+ padding: 0px 20px 20px 20px;}
+
+#logo {
+  width: 100px;
+  height: 100px;
+  float:left;
+  display: block;
+}
+
+#homeimg {
+  width:500px;
+  height:500px;
+  display:block;
+  padding:20px 0px 20px 20px;
+}
+
+div{margin: 20px 30px 0px 30px;
+    background-color:#E7E5DF;
+   font-family: monospace;}
+
+banner {margin: 50px 0px 0px 30px;}
+
+/* Navigation Section */
+nav {height:60px;
+     margin: 50px 30px 0px 30px;
+     background-color:#E7E5DF;
+     font-size:14pt;
+     font-family:monospace;}
+
+nav ul {list-style-type:none;
+       }
+
+nav ul li {float:left;
+           text-align:center;
+           padding-left: 260px;
+           line-height:45px;
+          }
+
+nav ul li a {display:block;
+             padding:8px;
+             text-decoration: none;
+             color:black;
+            }
+
+nav ul li a:hover {background-color:#393E41;
+                   color:#E7E5DF;}
+
+
+.typewriter {
+  color: #black;
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid #256A5C; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #256A5C }
+}
+
+.formsleft {padding: 195px 0px 0px 160px;
+       font-size: 25px;}
+
+.formsright {padding: 195px 0px 0px 160px;
+               font-size: 25px;}
+
