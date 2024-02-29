@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="/static/style.css" rel="stylesheet" type="text/css" />
+  
+</head>
+
+
+<body>
+  <banner>
+  <img src="/static/logo.png" id="logo">
+  <h1 style="margin: 0px 0px 0px 120px"> 
+ klo</h1>
+  </banner>
+
+  <nav>
+  <ul>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="finddata.html">Find data</a></li>
+  <li><a href="suggestions.html">Find suggestions</a></li>
+  <li><a href="compare.html">Compare music</a></li>
+  </ul>
+  </nav>
+
+<div style="width:28%;float:left;" id="imgdiv">
+  <img src="/static/logo.png" id="homeimg">
+</div>
+<div style="float:right;width:65%;height:540px;">
+  <h2 class="typewriter"> Welcome! </h2>
+  <p>This website is powered using Spotify Web API. You can search for artists and songs to get more information on them, find music suggestions and compare artists and songs</p>
+
+
+  <div>
+      Age: {{age}}
+  </div>
+
+  <br><br>
+
+  {% for fruit in fruits %}
+      <div>{{fruit}}</div>
+  {% endfor %}
+
+  
+</div>
+  
+
+</body>
+
+</html>
