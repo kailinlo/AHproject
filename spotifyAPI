@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, render_template
 from requests import post, get
 from spotipy.oauth2 import SpotifyClientCredentials
-from main import variable
+from classes import artist, track
 
 #CONNECTING TO SPOTIFY WEB API ----------
 
@@ -69,6 +69,20 @@ def search_artist(token, artistname):
     return None
   return json_result[0]
 
+#return JSON object for Spotify track data
+def search_song(token, songname):
+  url = "https://api.spotify.com/v1/search"
+  headers = get_auth_header(token)
+  query = f"?q={songname}&type=artist&limit=1"
+
+  query_url = url + query
+  result = get(query_url, headers=headers)
+  json_result = json.loads(result.content)["artists"]["items"]
+  if len(json_result) == 0:
+    print("No song found...")
+    return None
+  return json_result[0]
+
 
 #find artists song using artist ID
 def find_song_by_artist (token, artist_id):
@@ -77,6 +91,9 @@ def find_song_by_artist (token, artist_id):
   result = get(url, headers=headers)
   json_result = json.loads(result.content)["tracks"]
   return json_result
+  
+#find artists follower count using artist_id
+
 
 #DESERIALISING JSON OBJECT INTO CLASS OBJECTS ----------
 
@@ -88,12 +105,27 @@ target_artist = str(input("Enter the name of the artist you wish to search for:"
 
 result = search_artist(token, target_artist)
 artist_id=(result["id"])
-
-print (result["name"] + "'s top songs:")
-
 songs = find_song_by_artist(token, artist_id)
+
+
+#OUTPUTS ----------
+
+string = result["name"] + " information"
+box_char = '='
+print(box_char*(len(string)+4))
+print(box_char,string,box_char)
+print(box_char*(len(string)+4))
+
+print ("\n Top songs:")
+
 for idx, song in enumerate(songs):
   print (f"{idx +1}. {song['name']}")
 
+print ("\n Follower count:", result["followers"]["total"],)
 
-artistname = artistname
+if len(result["genres"])==0:
+  print ("\n Top genre: None found")
+else:
+  print("\n Top genre:", result["genres"][0])
+
+print ("\n Image URL:", result["images"][0]["url"])
