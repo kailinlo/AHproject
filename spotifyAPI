@@ -73,11 +73,11 @@ def search_artist(token, artistname):
 def search_song(token, songname):
   url = "https://api.spotify.com/v1/search"
   headers = get_auth_header(token)
-  query = f"?q={songname}&type=artist&limit=1"
+  query = f"?q={songname}&type=track&limit=1"
 
   query_url = url + query
   result = get(query_url, headers=headers)
-  json_result = json.loads(result.content)["artists"]["items"]
+  json_result = json.loads(result.content)["tracks"]["items"]
   if len(json_result) == 0:
     print("No song found...")
     return None
@@ -100,17 +100,52 @@ def find_song_by_artist (token, artist_id):
 #MAIN PROGRAM ----------
 
 token = get_token()
+target_song = str(input("Enter the name of the song you wish to search for:"))
 target_artist = str(input("Enter the name of the artist you wish to search for:"))
 
 
-result = search_artist(token, target_artist)
-artist_id=(result["id"])
+a_result = search_artist(token, target_artist)
+s_result = search_song(token, target_song)
+artist_id=(a_result["id"])
 songs = find_song_by_artist(token, artist_id)
 
 
-#OUTPUTS ----------
+#SONG OUTPUTS ----------
 
-string = result["name"] + " information"
+string = target_song + " information"
+box_char = '='
+print(box_char*(len(string)+4))
+print(box_char,string,box_char)
+print(box_char*(len(string)+4))
+
+print ("\n Artist name:", s_result["artists"][0]["name"])
+
+if s_result["album"]["album_type"]=="single":
+  print ("\n Album name:", " n/a, this song is a single")
+else:
+  print ("\n Album name:", s_result["album"]["name"])
+
+print ("\n Album image url:", s_result["album"]["images"][0]["url"])
+
+mill_sec= s_result["duration_ms"]
+total_sec = mill_sec / 1000
+min = int(total_sec // 60)
+sec = int(total_sec % 60)
+
+print ("\n Duration:", min, "min", sec, "sec")
+
+if s_result["explicit"] == True:
+  print ("\n Explicit: Yes")
+else:
+  print ("\n Explicit: No")
+
+
+
+print ("\n")
+
+#ARTIST OUTPUTS ----------
+
+string = a_result["name"] + " information"
 box_char = '='
 print(box_char*(len(string)+4))
 print(box_char,string,box_char)
@@ -121,11 +156,13 @@ print ("\n Top songs:")
 for idx, song in enumerate(songs):
   print (f"{idx +1}. {song['name']}")
 
-print ("\n Follower count:", result["followers"]["total"],)
+print ("\n Follower count:", a_result["followers"]["total"],)
 
-if len(result["genres"])==0:
+if len(a_result["genres"])==0:
   print ("\n Top genre: None found")
 else:
-  print("\n Top genre:", result["genres"][0])
+  print("\n Top genre:", a_result["genres"][0])
 
-print ("\n Image URL:", result["images"][0]["url"])
+print ("\n Image URL:", a_result["images"][0]["url"])
+
+print ("\n")
