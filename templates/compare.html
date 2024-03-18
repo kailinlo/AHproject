@@ -17,18 +17,18 @@
   </banner>
 
   <nav>
-  <ul>
-  <li><a href="index.html">Home</a></li>
-  <li><a href="finddata.html">Find data</a></li>
-  <li><a href="suggestions.html">Find suggestions</a></li>
-  <li><a href="compare.html">Compare music</a></li>
-  </ul>
-  </nav>
+    <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/finddata">Find data</a></li>
+    <li><a href="/suggestions">Find suggestions</a></li>
+    <li><a href="/compare">Compare music</a></li>
+    </ul>
+    </nav>
 
 </div> 
   <div style="float:left; height:650px; width: 880px; ">
 
-    <form class="formsleft" method="POST">
+    <form class="formsleft" method="POST" action="/artist_compare">
       Enter 5 artists you want to compare: <br> <br></br>
       Artist 1:<input type="text" name="name1"> <br>
       Artist 2:<input type="text" name="name2"> <br>
@@ -44,7 +44,7 @@
 </div> 
   <div style="float:right; height:650px; width: 880px;">
 
-    <form class="formsright" method="POST">
+    <form class="formsright" method="POST" action="/song_compare">
       Enter 5 songs you want to compare: <br> <br></br>
       Song 1:<input type="text" name="song1"> <br>
       Song 2:<input type="text" name="song2"> <br>
