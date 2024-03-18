@@ -120,8 +120,43 @@ class Artist_class ():
         for i in range(5):
           return artists[i]["name"], artists[i]["followers"]["total"]
 
-        
+class Song_class ():
+  def __init__(self, artist, album, albumurl, mins, secs, explicit):
+    self.artist = str(artist)
+    self.album = str(album)
+    self.albumurl = str(albumurl)
+    self.mins = int(mins)
+    self.secs = int(secs)
+    self.explicit = str(explicit)
 
+  def get_artist_name(self, s_result):
+    self.artist = s_result["artists"][0]["name"]
+    return self.artist
+
+  def get_album_name(self, s_result):
+    if s_result["album"]["album_type"]=="single":
+      self.album = "N/A, this song is a single"
+    else:
+      self.album = s_result["album"]["name"]
+    return self.album
+
+  def get_album_url(self, s_result):
+    self.albumurl = s_result["album"]["images"][0]["url"]
+    return self.albumurl
+
+  def get_duration(self, s_result):
+    mill_sec= s_result["duration_ms"]
+    total_sec = mill_sec / 1000
+    self.mins = int(total_sec // 60)
+    self.secs = int(total_sec % 60)
+    return self.mins, self.secs
+
+  def get_rating(self, s_result):
+    if s_result["explicit"] == True:
+      self.explicit="Yes"
+    else:
+      self.explicit="No"
+    return self.explicit
 
 #RENDER FLASK TEMPLATES/ FLASK CODE ----------
 app = Flask(  # Create a flask app
@@ -158,17 +193,23 @@ def data_page():
   )
 
 @app.route('/storeartistresult', methods =["GET", "POST"])
-def store_result():
+def store_aresult():
   if request.method == 'POST':
-    data = request.form['artistname']
-    session['data'] = data
+    a_data = request.form['artistname']
+    session['a_data'] = a_data
   return redirect('/results/artistresult')
+
+@app.route('/storesongresult', methods =["GET", "POST"])
+def store_sresult():
+  if request.method == 'POST':
+    s_data = request.form['songname']
+    session['s_data'] = s_data
+  return redirect('/results/songresult')
 
 #render artist result page
 @app.route('/results/artistresult', methods =["GET", "POST"])
 def aresult_page():
-  target_artist = session.get('data')
-  print(target_artist)
+  target_artist = session.get('a_data')
   a_result = get_artist_data(token, target_artist)
   artist_id = (a_result["id"])
   songs= get_artists_songs(token, artist_id)
@@ -190,8 +231,24 @@ def aresult_page():
 #render song result page
 @app.route('/results/songresult')  
 def sresult_page():
+  target_song = session.get('s_data')
+  s_result = get_song_data(token, target_song)
+  songobject = Song_class("Artist", "album", "url link", 0, 0, "rating here")
+  name=target_song
+  artistname= songobject.get_artist_name(s_result)
+  album= songobject.get_album_name(s_result)
+  albumphoto = songobject.get_album_url(s_result)
+  mins, secs = songobject.get_duration(s_result)
+  rating = songobject.get_rating(s_result)
   return render_template(
-    '/results/songresult.html'
+    '/results/songresult.html',
+    name=name,
+    artistname=artistname,
+    album=album,
+    albumphoto=albumphoto,
+    mins=mins,
+    secs=secs,
+    rating=rating,
   )
 
 #render suggestions page
@@ -215,8 +272,7 @@ def home_page():
     'index.html',  # Template file path, starting from the templates folder. 
   )
 
-
-
+  
 #render artist suggestions page
 @app.route('/results/suggestresult')  
 def asuggest_page():
@@ -245,5 +301,6 @@ if __name__ == "__main__":  # Makes sure this is the main process
     host='0.0.0.0',  # EStablishes the host, required for repl to detect the site
     port=3000 
   )
+
 
 
