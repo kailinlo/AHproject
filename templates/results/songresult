@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body>
+  <banner>
+  <img src="logo.png" id="logo">
+  <h1 style="margin: 0px 0px 0px 120px"> 
+ Find data</h1>
+  </banner>
+
+  <nav>
+    <ul>
+    <li><a href="/index">Home</a></li>
+    <li><a href="/finddata">Find data</a></li>
+    <li><a href="/suggestions">Find suggestions</a></li>
+    <li><a href="/compare">Compare music</a></li>
+    </ul>
+    </nav>
+
+
+  <div style="float:left;width:900px;height:540px;margin-left:200px;">
+
+    <h2> Song result</h2>
+    <section style ="padding-left: 20px;">
+    <h3>Song Name: {{songname}}</h3>
+
+    <h3>Artist Name: {{artistname}}</h3>
+
+    <h3>Album Name: {{album}}</h3>
+
+    <h3>Duration: {{duration}}</h3>
+
+    <h3>Explicit: {{rating}}</h3>
+
+    <h3>Popularity score: {{popularity}}</h3>
+  </section>
+  </div>
+
+  <div style="float:left;width:540px;height:540px;margin-left:20px;">
+    <img src="/{{albumphoto}}" id="homeimg">
+
+
+  </div>
+
+</body>
+
+</html>
