@@ -68,12 +68,12 @@ def get_song_data(token, songname):
 
 # CLASSES ---------------------------------------------------------------------
 class Artist_class ():
-  def __init__(self, name, genre, followers, imgurl):
+  def __init__(self, name, genre, followers, toptracks, relatedartists, imgurl):
     self.name = str(name)
     self.genre = str(genre)
     self.followers = int(followers)
     self.toptracks = [""]*10
-    # self.relatedartists = [relatedartists]*5
+    self.relatedartists = [""]*10
     self.imgurl = str(imgurl)
 
   #setter methods
@@ -98,13 +98,13 @@ class Artist_class ():
       self.toptracks [idx] = (songs['name'])
     return self.toptracks
 
-  # def set_relatedartists(self, relatedartists):
-  #   if len(relatedartists["artists"]) == 0:
-  #     self.relatedartists="No related artists found"
-  #   else:
-  #     for i in range (10):
-  #       relatedartists = relatedartists["artists"][i]["name"]
-  #   return self.relatedartists
+  def set_relatedartists(self, relatedartists):
+    if len(relatedartists["artists"]) == 0:
+      self.relatedartists="No related artists found"
+    else:
+      for i in range (10):
+        self.relatedartists[i]= relatedartists["artists"][i]["name"]
+    return self.relatedartists
 
   def set_profile_image (self, a_result):
     self.imgurl = a_result["images"][0]["url"]
@@ -213,7 +213,7 @@ def aresult_page():
   a_result = get_artist_data(token, target_artist)
   artist_id = (a_result["id"])
   songs= get_artists_songs(token, artist_id)
-  artistobject = Artist_class("Name", "Genre", 0, "Image URL")
+  artistobject = Artist_class("Name", "Genre", 0, "tracks", "related", "Image URL")
   name= artistobject.set_name(target_artist)
   genre= artistobject.set_genre(a_result)
   followers= artistobject.set_followers(a_result)
@@ -257,7 +257,33 @@ def suggestions_page():
   return render_template(
     'suggestions.html'
   )
+  
+@app.route('/store_suggestion', methods =["GET", "POST"])
+def store_suggest_result():
+  if request.method == 'POST':
+    artist = request.form['name']
+    session['artist'] = artist
+  return redirect('/results/suggestresult')
 
+#render artist suggestions page
+@app.route('/results/suggestresult')  
+def suggest_page():
+  artist = session.get('artist')
+  name= artist
+  a_result = get_artist_data(token, artist)
+  artist_id = (a_result["id"])
+  artists = get_related_artists(token, artist_id)
+  artistobject = Artist_class("Name", "Genre", 0, "tracks", "related", "Image URL")
+  image= artistobject.set_profile_image(a_result)
+  newartists = artistobject.set_relatedartists(artists)
+  get_related_artists(token, artist_id)
+  return render_template(
+    '/results/artistsuggest.html',
+  name=name,
+  image=image,
+  newartists=newartists,
+    )
+    
 #render compare page
 @app.route('/compare')  
 def compare_page():
@@ -272,13 +298,7 @@ def home_page():
     'index.html',  # Template file path, starting from the templates folder. 
   )
 
-  
-#render artist suggestions page
-@app.route('/results/suggestresult')  
-def asuggest_page():
-  return render_template(
-    '/results/suggestresult.html'
-  )
+
 
 #render artist comparison page
 @app.route('/results/artistcompare')  
@@ -301,6 +321,3 @@ if __name__ == "__main__":  # Makes sure this is the main process
     host='0.0.0.0',  # EStablishes the host, required for repl to detect the site
     port=3000 
   )
-
-
-
