@@ -5,15 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="/static/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 
 <body>
   <banner>
-  <img src="logo.png" id="logo">
+  <img src="/static/logo.png" id="logo">
   <h1 style="margin: 0px 0px 0px 120px"> 
- Find data</h1>
+  Song result</h1>
   </banner>
 
   <nav>
@@ -26,29 +26,29 @@
     </nav>
 
 
-  <div style="float:left;width:900px;height:540px;margin-left:200px;">
+  <div style="float:right;width:65%;height:540px;" id="info">
 
-    <h2> Song result</h2>
-    <section style ="padding-left: 20px;">
-    <h3>Song Name: {{songname}}</h3>
 
-    <h3>Artist Name: {{artistname}}</h3>
+    <h3>Song Name: </h3> <p>{{name}}</p>
 
-    <h3>Album Name: {{album}}</h3>
+    <h3>Artist Name: </h3> <p>{{artistname}}</p>
 
-    <h3>Duration: {{duration}}</h3>
+    <h3>Album Name:</h3> <p>{{album}}</p>
 
-    <h3>Explicit: {{rating}}</h3>
+    <h3>Duration: </h3> <p>{{mins}} : {{secs}}</p>
 
-    <h3>Popularity score: {{popularity}}</h3>
-  </section>
+    <h3>Explicit:</h3> <p>{{rating}}</p>
+
+ 
   </div>
 
-  <div style="float:left;width:540px;height:540px;margin-left:20px;">
-    <img src="/{{albumphoto}}" id="homeimg">
-
-
+  <div style="width:28%;float:left;" id="imgdiv" >
+    <img src="{{albumphoto}}" id="homeimg">
   </div>
+
+</body>
+
+</html>
 
 </body>
 
