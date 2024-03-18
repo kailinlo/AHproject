@@ -17,31 +17,24 @@
   </banner>
 
   <nav>
-  <ul>
-  <li><a href="index.html">Home</a></li>
-  <li><a href="finddata.html">Find data</a></li>
-  <li><a href="suggestions.html">Find suggestions</a></li>
-  <li><a href="compare.html">Compare music</a></li>
-  </ul>
-  </nav>
+    <ul>
+    <li><a href="/index">Home</a></li>
+    <li><a href="/finddata">Find data</a></li>
+    <li><a href="/suggestions">Find suggestions</a></li>
+    <li><a href="/compare">Compare music</a></li>
+    </ul>
+    </nav>
 
   </div>
-  <div style="float:left;width:700px;height:540px;margin-left:200px;">
+  <div style="float:left;width:1400px;height:540px;margin-left:200px;">
 
-    <form class="formsleft" action="form.php" method="POST">
-      Search for similar artists: <input type="text" name="name"> <br>
+    <form class="formsleft" action="form.php" method="POST" id="suggestions">
+      Find similar artists: <input type="text" name="name" placeholder="Enter artist here"> <br>
       <input type="submit" value="Submit">
     </form>
 
   </div>
 
-</div>
-<div style="float:right;width:700px;height:540px;margin-right:200px;">
-  <form class="formsleft" action="form.php" method="POST">
-   Search for similar songs: <br> <input type="text" name="name"> <br>
-  <input type="submit" value="Submit">
-  </form>
-</div>
 
 </body>
 
