@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +15,7 @@
   <banner>
   <img src="/static/logo.png" id="logo">
   <h1 style="margin: 0px 0px 0px 120px"> 
- Artist result</h1>
+  Similar artist suggestions</h1>
   </banner>
 
   <nav>
@@ -25,26 +27,26 @@
     </ul>
     </nav>
 
-  <div style="width:28%;float:left;" id="imgdiv">
-    <img src="{{image}}" id="homeimg">
-  </div>
 
-  
   <div style="float:right;width:65%;height:540px;" id="info">
 
 
-  <h3>Artist Name: </h3> <p>{{name}}</p>
+    <h3> Artists similar to {{name}} </h3>
+      <ol> 
+      <!-- For loop logic of jinja template -->
+      {%for i in range(10)%} 
 
-  <h3>Follower count: </h3> <p>{{followers}}</p>
+          <li>{{newartists[i]}}</li> 
+      {%endfor%} 
+      </ol> 
+    </p>
 
-  <h3>Top Genre: </h3> <p>{{genre}}</p>
-    
-  <h3> Top tracks </h3>
-    <ol> 
-    <!-- For loop logic of jinja template -->
-    {%for i in range(10)%} 
 
-        <li>{{tracks[i]}}</li> 
-    {%endfor%} 
-    </ol> 
-  </p>
+
+  </div>
+  <div style="width:28%;float:left;" id="imgdiv" >
+    <img src="{{image}}" id="homeimg">
+  </div>
+</body>
+
+</html>
