@@ -14,31 +14,30 @@
   <banner>
   <img src="/static/logo.png" id="logo">
   <h1 style="margin: 0px 0px 0px 120px"> 
- klo</h1>
+ Sorted songs (by popularity score)</h1>
   </banner>
 
   <nav>
-  <ul>
-  <li><a href="index.html">Home</a></li>
-  <li><a href="finddata.html">Find data</a></li>
-  <li><a href="suggestions.html">Find suggestions</a></li>
-  <li><a href="compare.html">Compare music</a></li>
-  </ul>
-  </nav>
+    <ul>
+    <li><a href="/index">Home</a></li>
+    <li><a href="/finddata">Find data</a></li>
+    <li><a href="/suggestions">Find suggestions</a></li>
+    <li><a href="/compare">Compare music</a></li>
+    </ul>
+    </nav>
 
 <div style="width:28%;float:left;" id="imgdiv">
   <img src="/static/logo.png" id="homeimg">
 </div>
 <div style="float:right;width:65%;height:540px;">
-  <h2> Songs sorted by popularity score </h2>
-  <h3>
+  <h3> Songs sorted by popularity score: </h3>
+  <p>
   <ol>
-  {%for i in range(0, len)%} 
-
-      <li>{{songscomp[i]}}</li> 
+  {%for i in range(5)%} 
+    <li>{{s[i]}}</li> 
   {%endfor%} 
     </ol>
-    </h3>
+    </p>
   </section>
 
 </div>
